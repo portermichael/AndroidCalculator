@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -135,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
                         input.setText(stringInput.toString());
                         break;
                     case R.id.buttonEql:
+                        String myString = stringInput.toString();
+                        if(evaluateString(myString)) {
+                            solution.setText(addOrSubtract(multiplyOrDivide(condensedNumbers(myString))));
+                        } else {
+                            solution.setText("Error in input");
+                        }
                         stringInput = new StringBuilder();
                         input.setText(stringInput.toString());
                         break;
@@ -166,7 +173,114 @@ public class MainActivity extends AppCompatActivity {
         buttonClr.setOnClickListener(myOnClickListener);
     }
 
-//    public String multiplyOrDivide (String tempString) {
-//
-//    }
+    protected Boolean evaluateString (String myString) {
+        if(myString.length() == 0) {
+            return false;
+        }
+        for (int i = 0; i < myString.length(); i++) {
+            switch (myString.charAt(i)) {
+                case '+':
+                    if(Character.isDigit(myString.charAt(i + 1)) && Character.isDigit(myString.charAt(i - 1))) {
+                        break;
+                    }
+                    return false;
+                case '-':
+                    if(Character.isDigit(myString.charAt(i + 1)) && Character.isDigit(myString.charAt(i - 1))) {
+                        break;
+                    }
+                    return false;
+                case '/':
+                    if(Character.isDigit(myString.charAt(i + 1)) && Character.isDigit(myString.charAt(i - 1))) {
+                        break;
+                    }
+                    return false;
+                case '*':
+                    if(Character.isDigit(myString.charAt(i + 1)) && Character.isDigit(myString.charAt(i - 1))) {
+                        break;
+                    }
+                    return false;
+                case '%':
+                    if(Character.isDigit(myString.charAt(i + 1)) && Character.isDigit(myString.charAt(i - 1))) {
+                        break;
+                    }
+                    return false;
+                case '^':
+                    if(Character.isDigit(myString.charAt(i + 1)) && Character.isDigit(myString.charAt(i - 1))) {
+                        break;
+                    }
+                    return false;
+
+            }
+        }
+        return true;
+    }
+
+    protected ArrayList<String> condensedNumbers (String tempString) {
+        ArrayList<String> outputArray = new ArrayList<String>();
+        StringBuilder tempBuilder = new StringBuilder();
+        for (int i = 0; i < tempString.length(); i++) {
+            if(Character.isDigit(tempString.charAt(i))) {
+                tempBuilder.append(tempString.charAt(i));
+            } else {
+                outputArray.add(tempBuilder.toString());
+                outputArray.add(tempString.substring(i, i+1));
+                tempBuilder = new StringBuilder();
+            }
+        }
+        return outputArray;
+    }
+
+    protected ArrayList<String> multiplyOrDivide (ArrayList<String> inputArrayList) {
+        // not handling these positions in the arrays appropriately
+        ArrayList<String> outputArray = new ArrayList<String>();
+        int first;
+        int second;
+        String holder;
+        for (int i = 1; i < inputArrayList.size(); i++) {
+            String operatorCheck = inputArrayList.get(i);
+            if (operatorCheck == "^") {
+                first = Integer.parseInt(inputArrayList.get(i - 1));
+                second = Integer.parseInt(inputArrayList.get(i - 1));
+                holder = Double.toString(Math.pow(first, second));
+                outputArray.add(holder);
+            } else if (operatorCheck == "*") {
+                first = Integer.parseInt(inputArrayList.get(i - 1));
+                second = Integer.parseInt(inputArrayList.get(i - 1));
+                holder = Integer.toString(first * second);
+                outputArray.add(holder);
+            } else if (operatorCheck == "/") {
+                first = Integer.parseInt(inputArrayList.get(i - 1));
+                second = Integer.parseInt(inputArrayList.get(i - 1));
+                holder = Integer.toString(first / second);
+                outputArray.add(holder);
+            } else if (operatorCheck == "%") {
+                first = Integer.parseInt(inputArrayList.get(i - 1));
+                second = Integer.parseInt(inputArrayList.get(i - 1));
+                holder = Integer.toString(first % second);
+                outputArray.add(holder);
+            } else {
+                outputArray.add(inputArrayList.get(i));
+            }
+        }
+        return outputArray;
+    }
+
+    protected String addOrSubtract (ArrayList<String> inputArrayList) {
+        String tempString = inputArrayList.get(0);
+        Integer first = Integer.parseInt(tempString);
+        Integer second;
+        String outputString;
+        for (int i = 1; i < inputArrayList.size(); i++) {
+            String operatorCheck = inputArrayList.get(i);
+            if (operatorCheck == "+") {
+                second = Integer.parseInt(inputArrayList.get(i - 1));
+                first = first + second;
+            } else if (operatorCheck == "-") {
+                second = Integer.parseInt(inputArrayList.get(i - 1));
+                first = first - second;
+            }
+        }
+        outputString = first.toString();
+        return outputString;
+    }
 }
