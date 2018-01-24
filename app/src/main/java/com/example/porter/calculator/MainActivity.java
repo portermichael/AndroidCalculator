@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Button button8;
     private Button button9;
     private Button buttonRnd;
-    private Button buttonNeg;
     private Button buttonAdd;
     private Button buttonSub;
     private Button buttonMult;
@@ -33,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonPow;
     private Button buttonEql;
     private Button buttonClr;
-    private ArrayList<Integer> arrayInput = new ArrayList<Integer>();
-    private ArrayList<Integer> arraySolution = new ArrayList<Integer>();
+    private StringBuilder stringInput = new StringBuilder();
+    private StringBuilder stringSolution = new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         button8 = findViewById(R.id.button8);
         button9 = findViewById(R.id.button9);
         buttonRnd = findViewById(R.id.buttonRnd);
-        buttonNeg = findViewById(R.id.buttonNeg);
         buttonAdd = findViewById(R.id.buttonAdd);
         buttonSub = findViewById(R.id.buttonSub);
         buttonMult = findViewById(R.id.buttonMult);
@@ -68,56 +66,81 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch(v.getId()) {
                     case R.id.button0:
-                        arrayInput.add(0);
+                        stringInput.append(0);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button1:
-                        arrayInput.add(1);
+                        stringInput.append(1);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button2:
-                        arrayInput.add(2);
+                        stringInput.append(2);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button3:
-                        arrayInput.add(3);
+                        stringInput.append(3);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button4:
-                        arrayInput.add(4);
+                        stringInput.append(4);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button5:
-                        arrayInput.add(5);
+                        stringInput.append(5);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button6:
-                        arrayInput.add(6);
+                        stringInput.append(6);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button7:
-                        arrayInput.add(7);
+                        stringInput.append(7);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button8:
-                        arrayInput.add(8);
+                        stringInput.append(8);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.button9:
-                        arrayInput.add(9);
+                        stringInput.append(9);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonRnd:
-                        Integer rnd = (int) (Math.random()*10);
-                        arrayInput.add(rnd);
-                        break;
-                    case R.id.buttonNeg:
+                        int rnd = (int) (Math.random()*10);
+                        stringInput.append(rnd);
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonAdd:
+                        stringInput.append("+");
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonSub:
+                        stringInput.append("-");
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonMult:
+                        stringInput.append("*");
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonDiv:
+                        stringInput.append("/");
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonMod:
+                        stringInput.append("%");
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonPow:
+                        stringInput.append("^");
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonEql:
+                        stringInput = new StringBuilder();
+                        input.setText(stringInput.toString());
                         break;
                     case R.id.buttonClr:
+                        stringInput = new StringBuilder();
+                        input.setText(stringInput.toString());
                         break;
                 }
             }
@@ -133,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         button8.setOnClickListener(myOnClickListener);
         button9.setOnClickListener(myOnClickListener);
         buttonRnd.setOnClickListener(myOnClickListener);
-        buttonNeg.setOnClickListener(myOnClickListener);
         buttonAdd.setOnClickListener(myOnClickListener);
         buttonSub.setOnClickListener(myOnClickListener);
         buttonMult.setOnClickListener(myOnClickListener);
@@ -143,4 +165,8 @@ public class MainActivity extends AppCompatActivity {
         buttonEql.setOnClickListener(myOnClickListener);
         buttonClr.setOnClickListener(myOnClickListener);
     }
+
+//    public String multiplyOrDivide (String tempString) {
+//
+//    }
 }
