@@ -146,8 +146,10 @@ public class MainActivity extends AppCompatActivity {
                         input.setText(stringInput.toString());
                         break;
                     case R.id.buttonClr:
-                        stringInput = new StringBuilder();
+                        stringInput = new StringBuilder("Input");
+                        stringSolution = new StringBuilder("Solution");
                         input.setText(stringInput.toString());
+                        solution.setText(stringSolution.toString());
                         break;
                 }
             }
@@ -221,6 +223,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < tempString.length(); i++) {
             if(Character.isDigit(tempString.charAt(i))) {
                 tempBuilder.append(tempString.charAt(i));
+                if(i == tempString.length() - 1) {
+                    outputArray.add(tempBuilder.toString());
+                }
             } else {
                 outputArray.add(tempBuilder.toString());
                 outputArray.add(tempString.substring(i, i+1));
@@ -231,33 +236,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected ArrayList<String> multiplyOrDivide (ArrayList<String> inputArrayList) {
-        // not handling these positions in the arrays appropriately
         ArrayList<String> outputArray = new ArrayList<String>();
         int first;
         int second;
         String holder;
-        for (int i = 1; i < inputArrayList.size(); i++) {
-            String operatorCheck = inputArrayList.get(i);
-            if (operatorCheck == "^") {
-                first = Integer.parseInt(inputArrayList.get(i - 1));
-                second = Integer.parseInt(inputArrayList.get(i - 1));
+        String operatorCheck;
+        for (int i = 0; i < inputArrayList.size(); i++) {
+            operatorCheck = inputArrayList.get(i);
+            if (operatorCheck.equals("^")) {
+                first = Integer.parseInt(outputArray.get(outputArray.size() - 1));
+                second = Integer.parseInt(inputArrayList.get(i + 1));
                 holder = Double.toString(Math.pow(first, second));
-                outputArray.add(holder);
-            } else if (operatorCheck == "*") {
-                first = Integer.parseInt(inputArrayList.get(i - 1));
-                second = Integer.parseInt(inputArrayList.get(i - 1));
+                outputArray.set(outputArray.size() - 1, holder);
+                i++;
+            } else if (operatorCheck.equals("*")) {
+                first = Integer.parseInt(outputArray.get(outputArray.size() - 1));
+                second = Integer.parseInt(inputArrayList.get(i + 1));
                 holder = Integer.toString(first * second);
-                outputArray.add(holder);
-            } else if (operatorCheck == "/") {
-                first = Integer.parseInt(inputArrayList.get(i - 1));
-                second = Integer.parseInt(inputArrayList.get(i - 1));
+                outputArray.set(outputArray.size() - 1, holder);
+                i++;
+            } else if (operatorCheck.equals("/")) {
+                first = Integer.parseInt(outputArray.get(outputArray.size() - 1));
+                second = Integer.parseInt(inputArrayList.get(i + 1));
                 holder = Integer.toString(first / second);
-                outputArray.add(holder);
-            } else if (operatorCheck == "%") {
-                first = Integer.parseInt(inputArrayList.get(i - 1));
-                second = Integer.parseInt(inputArrayList.get(i - 1));
+                outputArray.set(outputArray.size() - 1, holder);
+                i++;
+            } else if (operatorCheck.equals("%")) {
+                first = Integer.parseInt(outputArray.get(outputArray.size() - 1));
+                second = Integer.parseInt(inputArrayList.get(i + 1));
                 holder = Integer.toString(first % second);
-                outputArray.add(holder);
+                outputArray.set(outputArray.size() - 1, holder);
+                i++;
             } else {
                 outputArray.add(inputArrayList.get(i));
             }
@@ -272,11 +281,11 @@ public class MainActivity extends AppCompatActivity {
         String outputString;
         for (int i = 1; i < inputArrayList.size(); i++) {
             String operatorCheck = inputArrayList.get(i);
-            if (operatorCheck == "+") {
-                second = Integer.parseInt(inputArrayList.get(i - 1));
+            if (operatorCheck.equals("+")) {
+                second = Integer.parseInt(inputArrayList.get(i + 1));
                 first = first + second;
-            } else if (operatorCheck == "-") {
-                second = Integer.parseInt(inputArrayList.get(i - 1));
+            } else if (operatorCheck.equals("-")) {
+                second = Integer.parseInt(inputArrayList.get(i + 1));
                 first = first - second;
             }
         }
