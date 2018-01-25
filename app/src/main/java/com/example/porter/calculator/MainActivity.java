@@ -240,13 +240,15 @@ public class MainActivity extends AppCompatActivity {
         int first;
         int second;
         String holder;
+        int tempInt;
         String operatorCheck;
         for (int i = 0; i < inputArrayList.size(); i++) {
             operatorCheck = inputArrayList.get(i);
             if (operatorCheck.equals("^")) {
                 first = Integer.parseInt(outputArray.get(outputArray.size() - 1));
                 second = Integer.parseInt(inputArrayList.get(i + 1));
-                holder = Double.toString(Math.pow(first, second));
+                tempInt = (int) (Math.pow(first, second));
+                holder = Integer.toString(tempInt);
                 outputArray.set(outputArray.size() - 1, holder);
                 i++;
             } else if (operatorCheck.equals("*")) {
